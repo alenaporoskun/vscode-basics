@@ -1,3 +1,33 @@
+'''
+Повернемося до нашого завдання із телефонними номерами. Компанія розширюється та вийшла на ринок Азії. 
+Тепер у списку можуть знаходитись телефони різних країн. Кожна країна має свій телефонний код .
+
+Компанія працює з наступними країнами
+
+Країна	Код ISO	Префікс
+Japan	    JP	+81
+Singapore	SG	+65
+Taiwan	    TW	+886
+Ukraine	    UA	+380
+
+Щоб ми могли коректно виконати рекламну SMS кампанію, необхідно створити для кожної країни свій список телефонних номерів.
+
+Напишіть функцію get_phone_numbers_for_сountries, яка буде:
+
+Приймати список телефонних номерів.
+Санітизувати (нормалізувати) отриманий список телефонів клієнтів за допомогою нашої функції sanitize_phone_number.
+Сортувати телефонні номери за вказаними у таблиці країнами.
+Повертати словник зі списками телефонних номерів для кожної країни у такому вигляді:
+{
+    "UA": [<тут список телефонів>],
+    "JP": [<тут список телефонів>],
+    "TW": [<тут список телефонів>],
+    "SG": [<тут список телефонів>]
+}
+Якщо не вдалося порівняти код телефону з відомими, цей телефон повинен бути доданий до списку словника з ключем 'UA'.
+'''
+
+
 def sanitize_phone_number(phone):
     new_phone = (
         phone.strip()
@@ -14,55 +44,40 @@ def get_phone_numbers_for_countries(list_phones):
     new_phones = []
     for phone in list_phones:
         new_phones.append(sanitize_phone_number(phone))
-
+    '''
     dict_pref = {
         'JP': '81',
         'SG': '65',
         'TW': '886',
         'UA': '380',
-        'other': ''
     }
-
-    dict = {}
-    list_prefix = ['380', '81', '886', '65']
-    phones = [[], [], [], []]
+    '''
+    countries = ['JP', 'SG', 'TW',  'UA']
+    prefix =    ['81', '65', '886', '380']
+    list_phone = [[], [], [], []]
 
     for phone in new_phones:
-        print(phone)
-        count = 0
-        j = 0
-        for i, k in dict_pref.items():
-            #print(f'{i} {k}')
+        not_find = 0
+        for i in range(len(countries)):
+            if phone[:3].find(prefix[i], 0, 3) == 0:
+                list_phone[i].append(phone)
+                break
+            else:
+                not_find += 1
 
-            if dict_pref.get('c', -1)
+        if not_find == 4:
+            list_phone[3].append(phone)
 
-            if len(k) == 2:
-                if ((phone[:2].find(k) != -1) and (count < 1)):
-                    print(f'{i} {k}')
-                    if 
-                    dict.update({i: [phone]})
-                    count += 1
+        dict_ans = {
+        'JP': list_phone[0],
+        'SG': list_phone[1],
+        'TW': list_phone[2],
+        'UA': list_phone[3],
+        }
 
-            if len(k) == 3:
-                if ((phone[:3].find(k) != -1) and (count < 1)):
-                    print(f'{i} {k}')
-                    dict.update({i: [phone]})
-                    count += 1
+    return dict_ans
 
-    return dict
 
-list1 = ['380998759405', '818765347', '8867658976', '657658976']
-list2 = ['0658759411', '818765347', '818765344', '8867658976', '657658976']
+list1 = ['0658759411', '818765347', '818765344', '8867658976', '657658976']
+list2 = ['065-875-94-11', '(81)8765347', '8867658976', '657658976', '(65)765-89-77'] 
 print(get_phone_numbers_for_countries(list2))
-        
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-    
