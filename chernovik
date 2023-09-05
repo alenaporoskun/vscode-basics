@@ -1,0 +1,40 @@
+def get_phone_numbers_for_countries(list_phones):
+    for i in list_phones:
+        print(i)
+
+    dict_pref = {
+        'JP': '81',
+        'SG': '65',
+        'TW': '886',
+        'UA': '380',
+    }
+    countries = ['JP', 'SG', 'TW',  'UA']
+    prefix =    ['81', '65', '886', '380']
+    list_phone = [[], [], [], []]
+    print()
+    for phone in list_phones:
+        print(phone)
+        for i in range(len(countries)):
+            if phone[:3].find(prefix[i], 0, 3) == 0:
+                print(countries[i])
+                break
+            else:
+                print(prefix[i])
+
+
+
+    """
+    for phone in list_phones:
+        for i, j in dict_pref.items():
+
+            if phone.find(j, 0, 3) == 0:
+                print(phone)
+                print(i)
+            if phone.find(j, 0, 3) == -1:
+                print('j ', j)
+                print(phone, ' other')
+    """
+list2 = ['0658759411', '818765347', '818765344', '8867658976', '657658976']
+print(get_phone_numbers_for_countries(list2))
+
+#print('0380100'.find('380', 0, 3))
