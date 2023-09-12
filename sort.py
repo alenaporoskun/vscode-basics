@@ -20,6 +20,7 @@
 '''
 from pathlib import Path
 import sys
+import os
 
 
 def main():
@@ -33,8 +34,23 @@ def main():
             print(i.name, ' - папка')
         if i.is_file():
             #print(i.name, ' - файл')
-            fun_image(i)
-            fun_document(i)
+            if fun_image(i):
+                print(os.listdir(p))
+                #source = p
+                #destination = Path(args[1] + '\' + 'IMAGE') # '/opt/awesome/destination'
+                #os.rename(source, destination)
+                #os.listdir(p)
+
+                
+            # iterate on all files to move them to destination folder
+            for file_path in allfiles:
+                dst_path = os.path.join(destination, os.path.basename(file_path))
+                shutil.move(file_path, dst_path)
+                print(f"Moved {file_path} -> {dst_path}")
+
+
+
+            #fun_document(i)
 
 
 
@@ -42,12 +58,15 @@ def fun_image(i):
     
     if i.suffix.upper() in ('.JPEG', '.PNG', '.JPG', '.SVG'):
         print(i.name, ' - зображення')
-
+        return True
+    return False
 
 def fun_document(i):
 
     if i.suffix.upper() in ('.DOC', '.DOCX', '.TXT', '.PDF', '.XLSX', '.PPTX'):
         print(i.name, ' - документ')
+        return True
+    return False
 
 if __name__ == '__main__':
  
