@@ -26,9 +26,9 @@ def sort(paths_from):
     # fun_trying(paths_from)
 
     global list_extensions, list_unknown_extensions
-    list_extensions = []
-    list_unknown_extensions= []
-    list_unknown_ext = []
+    list_extensions = []           # список розширень що зустрічаються у папці
+    list_unknown_extensions = []   # список усіх розширень що не співпали з відомими
+    list_unknown_ext = []          # список невідомих розширень
 
     images = fun_images(paths_from)
     documents = fun_documents(paths_from)
@@ -36,16 +36,28 @@ def sort(paths_from):
     video = fun_video(paths_from)
     archives = fun_archives(paths_from)
 
-    print(f' images {images}\n documents {documents}\n audio {audio}\n video {video}\n archives {archives}')
+    # список зі списками посортованих файлів по групам
+    sorted_list = [images, documents, audio, video, archives]
 
-    for i in range(len(list_unknown_extensions)):
-        item = list_unknown_extensions[i]
+    print(f' images {images}\n documents {documents}\n audio {audio}\n video {video}\n archives {archives}')
+    
+    list_extensions = set(list_extensions)
+    list_extensions = list(list_extensions)
+    print(' list of known extensions = ', list_extensions)
+
+    list_unknown_extensions = set(list_unknown_extensions)
+    list_unknown_extensions = list(list_unknown_extensions)
+
+    for item in list_unknown_extensions:
+        #item = list_unknown_extensions[i]
         if (item not in list_extensions) and (item != ''):
             list_unknown_ext.append(item)
 
     list_unknown_extensions.clear()
-
     print(' list of unknown extensions = ', list_unknown_ext)
+
+
+    return sorted_list, list_extensions, list_unknown_ext
 
 
 def fun_images(paths_from):
@@ -60,12 +72,13 @@ def fun_images(paths_from):
         if Path(file).suffix.upper() in ('.JPEG', '.PNG', '.JPG', '.SVG'):
                 os.rename(f'{paths_from}/{file}', normalize(f'{paths_from}/{file}'))
                 path_join = os.path.join(paths_from, file)
-                # shutil.copy2(path_join, paths_to)
-                shutil.move(path_join, paths_to)
+                shutil.copy2(path_join, paths_to)
+                #shutil.move(path_join, paths_to)
                 list_images.append(file)
                 list_extensions.append(Path(file).suffix)
         else:
             list_unknown_extensions.append(Path(file).suffix)
+
     return list_images
 
     '''
@@ -93,12 +106,13 @@ def fun_documents(paths_from):
         if Path(file).suffix.upper() in ('.DOC', '.DOCX', '.TXT', '.PDF', '.XLSX', '.PPTX'):
                 os.rename(f'{paths_from}/{file}', normalize(f'{paths_from}/{file}'))
                 path_join = os.path.join(paths_from, file)
-                # shutil.copy2(path_join, paths_to)
-                shutil.move(path_join, paths_to)
+                shutil.copy2(path_join, paths_to)
+                #shutil.move(path_join, paths_to)
                 list_documents.append(file)
                 list_extensions.append(Path(file).suffix)
         else:
             list_unknown_extensions.append(Path(file).suffix)
+
     return list_documents
 
 
@@ -114,12 +128,13 @@ def fun_audio(paths_from):
         if Path(file).suffix.upper() in ('.MP3', '.OGG', '.WAV', '.AMR'):
                 os.rename(f'{paths_from}\{file}', normalize(f'{paths_from}\{file}'))
                 path_join = os.path.join(paths_from, file)
-                #shutil.copy2(path_join, paths_to)
-                shutil.move(path_join, paths_to)
+                shutil.copy2(path_join, paths_to)
+                #shutil.move(path_join, paths_to)
                 list_audio.append(file)
                 list_extensions.append(Path(file).suffix)
         else:
             list_unknown_extensions.append(Path(file).suffix)
+
     return list_audio
 
 
@@ -135,12 +150,13 @@ def fun_video(paths_from):
         if Path(file).suffix.upper() in ('.AVI', '.MP4', '.MOV', '.MKV'):
                 os.rename(f'{paths_from}\{file}', normalize(f'{paths_from}\{file}'))
                 path_join = os.path.join(paths_from, file)
-                #shutil.copy2(path_join, paths_to)
-                shutil.move(path_join, paths_to)
+                shutil.copy2(path_join, paths_to)
+                #shutil.move(path_join, paths_to)
                 list_video.append(file)
                 list_extensions.append(Path(file).suffix)
         else:
             list_unknown_extensions.append(Path(file).suffix)
+
     return list_video
 
 
@@ -166,6 +182,7 @@ def fun_archives(paths_from):
                     list_extensions.append(Path(file).suffix)
         else:
             list_unknown_extensions.append(Path(file).suffix)
+
     return list_archives
 
 
