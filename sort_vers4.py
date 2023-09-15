@@ -44,12 +44,16 @@ def sort_files(source_folder, destination_folder):
 
     for root, dirs, files in os.walk(source_folder):
         # Метод walk() генерує імена файлів у дереві каталогів, проходячи по дереву зверху вниз або знизу вгору
-        if os.path.basename(root) not in ('archives', 'video', 'audio', 'documents', 'images'):
+
+        # Щоб не чіпати вже відсортовані файли, перевіримо на входження рядка 'FILES' в рядок шляху до файлу
+        if 'FILES' not in root:
+        #if os.path.basename(root) not in ('archives', 'video', 'audio', 'documents', 'images', 'FILES') and 'FILES' not in root:
 
             for file in files:
+
                 # Отримуємо шлях до файлу
                 source_path = os.path.join(root, file) 
-                    
+                        
                 # Отримуємо розширення файлу
                 file_extension = Path(file).suffix.upper()
 
@@ -142,8 +146,10 @@ def unpack_archive(archive_path, destination_folder, category_folder):
 
     # Перевіряємо, чи файл вже знаходиться у відповідній папці
     if not os.path.exists(destination_path):
+        print('os.path.basename(destination_path) ', os.path.basename(destination_path))
         print('category_path ', category_path)
-        shutil.unpack_archive(archive_path, category_path) # category_path)
+        print('os.path.basename(category_path) ', os.path.basename(category_path))
+        shutil.unpack_archive(archive_path, category_path) 
         os.remove(archive_path)
         '''
         if archive_extension == '.ZIP':
