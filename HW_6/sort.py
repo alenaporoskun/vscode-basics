@@ -44,12 +44,14 @@ def sort_files(source_folder, destination_folder):
 
     for root, dirs, files in os.walk(source_folder):
         # Метод walk() генерує імена файлів у дереві каталогів, проходячи по дереву зверху вниз або знизу вгору
-        if os.path.basename(root) not in ('archives', 'video', 'audio', 'documents', 'images'):
+
+        # Щоб не чіпати вже відсортовані файли, перевіримо на входження рядка 'FILES' в рядок шляху до файлу
+        if 'FILES' not in root:
 
             for file in files:
                 # Отримуємо шлях до файлу
                 source_path = os.path.join(root, file) 
-                    
+                        
                 # Отримуємо розширення файлу
                 file_extension = Path(file).suffix.upper()
 
@@ -92,8 +94,8 @@ def sort_files(source_folder, destination_folder):
             os.rename(source_path, normalize(source_path))
 
         for directory in dirs:
-                #if directory not in ('archives', 'video', 'audio', 'documents', 'images'):
-                process_directory(os.path.join(root, directory))
+                if directory not in ('archives', 'video', 'audio', 'documents', 'images'):
+                    process_directory(os.path.join(root, directory))
 
     # Створюємо словник з списками файлів по групам
     dict_files = {'images': list(images), 'documents': list(documents), 'audio': list(audio), 
@@ -108,11 +110,11 @@ def process_directory(directory_path):
     new_directory_path = os.path.join(os.path.dirname(directory_path), normalized_name)
 
     if new_directory_path != directory_path:
-        # перейменовуємо папку згідно функції normalize
+        # Перейменовуємо папку згідно функції normalize
         os.rename(directory_path, new_directory_path)
 
     if not os.listdir(new_directory_path):
-        # видаляємо шлях до каталогу
+        # Видаляємо шлях до каталогу
         os.rmdir(new_directory_path)
 
 
@@ -131,21 +133,25 @@ def move_file(source_path, destination_folder, category_folder):
 
 
 def unpack_archive(archive_path, destination_folder, category_folder):
+    # Шлях куди розпаковуємо архів + створення папки
     category_path = os.path.join(destination_folder, category_folder)
     os.makedirs(category_path, exist_ok=True)
-    # archive_extension = archive_path.suffix.upper()
-
+    
     # Отримуємо ім'я файлу без шляху
     filename = os.path.basename(archive_path)
+    # Отримуємо ім'я файлу без розширення
     filename = str(filename).replace(Path(filename).suffix, '')
+    # Кінцевий шлях куди розпаковуємо архів
     destination_path = os.path.join(category_path, filename)
 
     # Перевіряємо, чи файл вже знаходиться у відповідній папці
     if not os.path.exists(destination_path):
-        print('category_path ', category_path)
-        shutil.unpack_archive(archive_path, category_path) # category_path)
+        # Розпаковуємо архів
+        shutil.unpack_archive(archive_path, category_path) 
+        # Видаляємо архів, який вже розпакували
         os.remove(archive_path)
         '''
+        archive_extension = archive_path.suffix.upper()
         if archive_extension == '.ZIP':
             with zipfile.ZipFile(archive_path, 'r') as zip_ref:
                 zip_ref.extractall(destination_path)
@@ -156,19 +162,22 @@ def unpack_archive(archive_path, destination_folder, category_folder):
         
         
 def normalize(string):
+    # Символи кирилиці, які треба замінити
     CYRILLIC_SYMBOLS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ "
+    # Замінюємо на ці символи
     TRANSLATION = ("a", "b", "v", "g", "d", "e", "e", "j", "z", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u",
                 "f", "h", "ts", "ch", "sh", "sch", "", "y", "", "e", "yu", "ya", "je", "i", "ji", "g", "_")
     
+    # Словник для перекладу
     TRANS = {}
-
     for c, l in zip(CYRILLIC_SYMBOLS, TRANSLATION): 
         TRANS[ord(c)] = l
         TRANS[ord(c.upper())] = l.upper()
     
+    # Транслітеруємо всі символи згідно зі вказаним словником 
     word = ""
     for ch in string:
-            word += ch.translate(TRANS)
+        word += ch.translate(TRANS)
 
     return word
 
