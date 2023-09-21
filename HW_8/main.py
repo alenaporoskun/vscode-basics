@@ -28,7 +28,7 @@ def get_birthdays_per_week(users):
         birthday = user['birthday']
         if birthday.year <= today.year:
             birthday = birthday.replace(year = today.year)
-            
+
         print('birthday ', birthday)
         birthday_day_week = birthday.strftime('%A')
         print('birthday_day_week ', birthday_day_week)
@@ -55,12 +55,16 @@ def get_birthdays_per_week(users):
             if birthday_day_week == 'Friday':
                 names_friday.append(name)
 
-
-    users2['Monday']     = names_monday
-    users2['Tuesday']    = names_tuesday
-    users2['Wednesday']  = names_wednesday
-    users2['Thursday']   = names_thursday
-    users2['Friday']     = names_friday
+    if len(names_monday) > 0:
+        users2['Monday'] = names_monday
+    if len(names_tuesday) > 0:
+        users2['Tuesday'] = names_tuesday
+    if len(names_wednesday) > 0:
+        users2['Wednesday'] = names_wednesday
+    if len(names_thursday) > 0:
+        users2['Thursday'] = names_thursday
+    if len(names_friday) > 0:
+        users2['Friday'] = names_friday
 
 
     for key, value in users2.items():
