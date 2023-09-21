@@ -73,7 +73,7 @@ def get_birthdays_per_week(users):
 
     print(users2)
 
-    return users2 # users
+    return users2
 
 
 if __name__ == "__main__":
