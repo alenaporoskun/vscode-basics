@@ -6,7 +6,7 @@ def get_birthdays_per_week(users):
 
     users2 = {}
     names_monday, names_tuesday, names_wednesday, names_thursday, names_friday  = [], [], [], [], []
-    count_people = 0
+    # count_people = 0
     for user in users:
 
         print(user)
@@ -17,13 +17,12 @@ def get_birthdays_per_week(users):
 
         today = date.today()
         print('today', today)
-        #print('today.strftime("%w")', today.strftime('%w'))
 
         new_day = today + timedelta(days=(7))
         print('new_day', new_day)
 
         new_day_week = new_day.strftime('%A')
-        print('today_day_week ', new_day_week)
+        print('new_day_week ', new_day_week)
 
         birthday = user['birthday']
         if birthday.year <= today.year:
@@ -35,11 +34,17 @@ def get_birthdays_per_week(users):
 
 
         delta = birthday - today
-        delta2 = new_day
-        delta2 = delta2 
+        if new_day.year > today.year:
+            birthday = birthday.replace(year = new_day.year)
+            print('new birthday', birthday)
+            delta2 = new_day - birthday
+        else:
+            delta2 = timedelta(days=0)
+
         print('delta ', delta)
         print('delta2 ', delta2)
-        if delta.days >= 0:
+
+        if delta.days >= 0 or delta2.days > 0:
             if birthday_day_week == 'Monday' or birthday_day_week in ('Saturday', 'Sunday'):
                 names_monday.append(name)
 
@@ -66,16 +71,7 @@ def get_birthdays_per_week(users):
     if len(names_friday) > 0:
         users2['Friday'] = names_friday
 
-
-    for key, value in users2.items():
-        if len(value) != 0:
-            count_people += 1
     print(users2)
-
-    if count_people == 0:
-        return {}
-    
-    #print('-'*10)
 
     return users2 # users
 
