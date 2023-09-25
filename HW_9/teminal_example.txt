@@ -16,3 +16,5 @@ Enter command: phone Tom
 Error: Contact Tom not found.
 Enter command: add Mike
 Error: Phone number is not provided.
+Enter command: exit
+Good bye!
