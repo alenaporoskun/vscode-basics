@@ -1,0 +1,22 @@
+Enter command: Hello  
+How can I help you?  
+Enter command: add Nick 8947758588  
+Contact Nick added with number 8947758588  
+Enter command: add Clark 233595305  
+Contact Clark added with number 233595305  
+Enter command: change Nick 455644747  
+Phone number for Nick changed to 455644747  
+Enter command: show all  
+{'Nick': '455644747', 'Clark': '233595305'}  
+Enter command: phone Clark  
+Phone number for contact Clark: 233595305.  
+Enter command: phone Nick  
+Phone number for contact Nick: 455644747.  
+Enter command: phone Tom  
+Error: Contact Tom not found.  
+Enter command: add Mike  
+Error: Phone number is not provided.    
+Enter command: add  
+Error: Name is not provided.  
+Enter command: exit  
+Good bye!  
