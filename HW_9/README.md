@@ -46,7 +46,7 @@ Enter command: phone Tom
 Error: Contact Tom not found.  
 Enter command: add Mike  
 Error: Phone number is not provided.    
-Enter command: add  
-Error: Name is not provided.  
+Enter command: add
+Error: Name and phone number are not provided.
 Enter command: exit  
 Good bye!  
