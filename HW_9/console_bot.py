@@ -33,7 +33,7 @@ def fun_hello():
 
 def fun_add(name=None, number=None):
     if name is None:
-        return "Error: Name is not provided."
+        return "Error: Name and phone number are not provided."
     if number is None:
         return "Error: Phone number is not provided."
     contacts.update({name: number})
