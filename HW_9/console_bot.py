@@ -31,7 +31,9 @@ contacts = {}  # Словник для зберігання контактів
 def fun_hello():
     return 'How can I help you?'
 
-def fun_add(name, number=None):
+def fun_add(name=None, number=None):
+    if name is None:
+        return "Error: Name is not provided."
     if number is None:
         return "Error: Phone number is not provided."
     contacts.update({name: number})
