@@ -102,7 +102,7 @@ class Record:
     def find_phone(self, number):
         for phone in self.phones:
             if phone.value.lower() == number:
-                return phone.value
+                return phone
         return None
 
 
