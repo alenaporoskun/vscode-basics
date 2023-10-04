@@ -23,9 +23,9 @@ Contact name: John, phones: 1112223333; 5555555555
   
 found_phone = john.find_phone("5555555555"):  
 John: 5555555555   
-  
-john_record.set_birthday("2001-08-19") 
-Contact name: John, phones: 1112223333; 5555555555, birthday: 2001-08-19  
+   
+john_record.set_birthday("2001-08-19")     
+Contact name: John, phones: 1112223333; 5555555555, birthday: 2001-08-19   
 There are 319 days left before the birthday.  
   
 Add another contacts...  
