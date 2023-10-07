@@ -72,7 +72,7 @@ def main():
         search_results = book.search(search_query)
 
     filename = './HW_12_AddressBook/address_book.pkl'
-    # Збереження адресної книги на диск 
+    # Збереження адресної книги на диск
     book.save_to_file(filename)
 
     # Завантаження адресної книги з диска
