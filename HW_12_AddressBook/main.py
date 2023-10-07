@@ -71,7 +71,7 @@ def main():
         search_query = input("\nEnter a name or phone number to search('exit' to finish): ")
         search_results = book.search(search_query)
 
-    filename = './HW_12/address_boor.pkl'
+    filename = './HW_12_AddressBook/address_book.pkl'
     # Збереження адресної книги на диск
     book.save_to_file(filename)
 
