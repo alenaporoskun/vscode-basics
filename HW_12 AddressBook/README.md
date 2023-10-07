@@ -13,8 +13,8 @@
 ## Example of Output:
 
 Add contacts...
-
-book
+  
+book  
 Contact name: John, phones: 1112223333; 5555555555, birthday: 2001-08-19  
 Contact name: Jane, phones: 9876543210  
 Contact name: Kol, phones: 1234567890  
