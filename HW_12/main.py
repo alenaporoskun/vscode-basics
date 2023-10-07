@@ -64,10 +64,12 @@ def main():
             print("Search results:")
             for record in search_results:
                 print(record)
+            search_results = None
         else:
             print("No matching contacts found.")
 
         search_query = input("\nEnter a name or phone number to search('exit' to finish): ")
+        search_results = book.search(search_query)
 
     filename = './HW_12/address_boor.pkl'
     # Збереження адресної книги на диск
@@ -235,38 +237,23 @@ class AddressBook(UserDict):
         with open(filename, "rb") as file:
             self.data = pickle.load(file)
 
-    # def search(self, query):
-    #     # Пошук за кількома цифрами номера телефону або літерами імені 
-    #     results = []
-    #     try:
-    #         query
 
-    #     for name, record in self.data.items():
-    #         if query.lower() in name.lower():
-    #             results.append(record)
-    #         for phone in record.phones:
-    #             if query.lower() in phone.value.lower():
-    #                 results.append(record)
-    #     return results
-    
-    def search(contacts, query):
-        search_results = []
-        
-        # Пошук за ім'ям
-        for contact in contacts.data.values():
-            if query.lower() in contact.name.value.lower():
-                search_results.append(contact)
-        
-        # Якщо нічого не знайдено за ім'ям, то шукати за номером телефону
-        if not search_results:
-            for contact in contacts.data.values():
-                for phone in contact.phones:
-                    if query in phone.value:
-                        search_results.append(contact)
-                        break
-        
-        return search_results
-
+    def search(self, query):
+        # Пошук за кількома цифрами номера телефону або літерами імені 
+        results = []
+        try:
+            int(query[0])
+        except Exception:
+            for name, record in self.data.items():
+                if query.lower() in name.lower():
+                    results.append(record)
+        else:
+            for name, record in self.data.items():
+                for phone in record.phones:
+                    if query.lower() in phone.value.lower():
+                        results.append(record)
+        finally:        
+            return results
 
 class AddressBookIterator:
     def __init__(self, address_book, items_per_page):
