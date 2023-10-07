@@ -29,7 +29,7 @@ def main():
     # Встановлення дати народження для John
     john_record.set_birthday("2001-08-19")
 
-    # print(john_record)                        # Виведення: Contact name: John, phones: 1112223333; 5555555555, birthday: 2001-08-19
+    # print(john_record)                      # Виведення: Contact name: John, phones: 1112223333; 5555555555, birthday: 2001-08-19
     # print(john_record.days_to_birthday())   # Виведення: There are 319 days left before the birthday.
 
     # Створення записів для інших котанктів
